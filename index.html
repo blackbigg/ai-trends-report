@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 趨勢報告：戰略與模擬儀表板</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #fafaf9; color: #292524; }
+        .chart-container { position: relative; margin: auto; height: 300px; width: 100%; }
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: #ea580c; cursor: pointer; margin-top: -6px; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #e5e5e5; border-radius: 2px; }
+        .sim-card { transition: all 0.3s ease; }
+        .sim-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .insight-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 font-bold text-stone-900 tracking-tight text-xl">AI STRATEGY 2025</div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-2">
+                        <button onclick="scrollToId('summary')" class="hover:bg-stone-100 px-3 py-2 rounded-md text-sm font-medium">核心摘要</button>
+                        <button onclick="scrollToId('sim-geo')" class="text-amber-700 bg-amber-50 hover:bg-amber-100 px-3 py-2 rounded-md text-sm font-bold border border-amber-200">地緣模擬</button>
+                        <button onclick="scrollToId('sim-energy')" class="text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-2 rounded-md text-sm font-bold border border-blue-200">能源模擬</button>
+                        <button onclick="scrollToId('sim-prod')" class="text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-2 rounded-md text-sm font-bold border border-emerald-200">ROI 模擬</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="summary" class="py-20 px-4 bg-white border-b border-stone-200">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-6 leading-tight">
+                    全球地緣政治重塑與<br>技術實施的長期結構性影響
+                </h1>
+                <p class="text-xl text-stone-600 max-w-3xl mx-auto">
+                    本報告揭示了 AI 發展從「技術競賽」轉向「地緣戰略」的結構性變革。以下是五大核心洞察，為後續的模擬分析提供理論基礎。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100">
+                    <span class="insight-badge bg-amber-100 text-amber-800">地緣政治</span>
+                    <h3 class="text-xl font-bold text-stone-900 mb-3">從效率到安全：供應鏈的兩極化</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        美中競爭已導致全球 AI 生態系的碎片化。技術實施不再遵循成本最低的「效率路徑」，而是被迫轉向成本較高的「安全路徑」。這種「地緣政治溢價」將長期壓低處於斷裂帶企業的資本回報率 (ROIC)。
+                    </p>
+                </div>
+
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100">
+                    <span class="insight-badge bg-emerald-100 text-emerald-800">宏觀經濟</span>
+                    <h3 class="text-xl font-bold text-stone-900 mb-3">現代生產力悖論與 J 曲線</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        儘管金融市場狂熱，但宏觀生產力數據仍停滯。這是典型的「J 曲線效應」：在技術紅利顯現前，企業需經歷漫長的「試點煉獄」與組織重組，這段滯後期往往被市場嚴重低估。
+                    </p>
+                </div>
+
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100">
+                    <span class="insight-badge bg-blue-100 text-blue-800">物理瓶頸</span>
+                    <h3 class="text-xl font-bold text-stone-900 mb-3">能源是新的黃金</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        AI 算力的指數級增長正撞上電網的物理極限。2028 年資料中心恐消耗美國 12% 電力。未來的 AI 霸權不屬於擁有最多 GPU 的人，而是屬於擁有穩定基載電力（如核能）與電網接入權的人。
+                    </p>
+                </div>
+
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100">
+                    <span class="insight-badge bg-purple-100 text-purple-800">新興力量</span>
+                    <h3 class="text-xl font-bold text-stone-900 mb-3">主權算力與中東崛起</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        除了美中，中東主權基金（如沙烏地 PIF、阿聯 MGX）正利用能源財富重塑全球算力版圖，將「石油美元」轉化為「算力資本」，成為全球 AI 基礎設施的關鍵第三方力量。
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-stone-900 text-stone-300 p-8 rounded-2xl text-center">
+                <span class="insight-badge bg-stone-700 text-stone-300">結論</span>
+                <h3 class="text-xl font-bold text-white mb-2">在淘金熱中「賣鏟子」</h3>
+                <p class="max-w-3xl mx-auto text-sm leading-relaxed">
+                    最終，AI 革命的步伐不由演算法決定，而是取決於鋪設混凝土、部署光纖和建造發電廠的殘酷物理現實。勝利者將是那些掌控實體生產資料的人。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sim-geo" class="py-16 bg-stone-100 border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center mb-8">
+                <div class="bg-amber-100 p-3 rounded-xl mr-4 text-2xl">🌍</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-stone-900">模擬器 I：地緣政治溢價分析</h2>
+                    <p class="text-stone-600">驗證核心觀點：當供應鏈轉向「安全優先」，企業利潤將如何被侵蝕？</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 sim-card">
+                    <h3 class="font-bold text-stone-800 mb-6 border-b pb-2">參數設定</h3>
+                    
+                    <div class="mb-6">
+                        <label class="flex justify-between text-sm font-medium mb-2">
+                            <span>地緣風險溢價 (WACC 增加)</span>
+                            <span id="geo-wacc-val" class="text-amber-600 font-bold">2.0%</span>
+                        </label>
+                        <input type="range" id="geo-wacc" min="0" max="8" step="0.5" value="2">
+                        <p class="text-xs text-stone-400 mt-1">影響資本成本與估值倍數</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="flex justify-between text-sm font-medium mb-2">
+                            <span>供應鏈冗餘成本 (COGS 增加)</span>
+                            <span id="geo-cogs-val" class="text-red-600 font-bold">5.0%</span>
+                        </label>
+                        <input type="range" id="geo-cogs" min="0" max="15" step="1" value="5">
+                        <p class="text-xs text-stone-400 mt-1">避開受限供應商與在地化製造的代價</p>
+                    </div>
+
+                    <div class="bg-amber-50 p-4 rounded-lg border border-amber-100 text-xs text-amber-900">
+                        <strong>邏輯關聯：</strong> 此模擬展示了報告 1.4 節所述的「內生約束」。您可以看到政治邊界如何轉化為真實的財務成本。
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <div class="chart-container">
+                        <canvas id="geoChart"></canvas>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="text-center bg-stone-50 p-3 rounded-lg">
+                            <div class="text-xs text-stone-500 uppercase">預估營運利潤率</div>
+                            <div id="geo-result-margin" class="text-2xl font-bold text-stone-800">23.0%</div>
+                        </div>
+                        <div class="text-center bg-stone-50 p-3 rounded-lg">
+                            <div class="text-xs text-stone-500 uppercase">利潤侵蝕幅度</div>
+                            <div id="geo-result-erosion" class="text-2xl font-bold text-red-500">-7.0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sim-energy" class="py-16 bg-white border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 p-3 rounded-xl mr-4 text-2xl">⚡</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-stone-900">模擬器 II：能源瓶頸壓力測試</h2>
+                    <p class="text-stone-600">驗證核心觀點：AI 的指數級能耗與物理電網的落差。</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-stone-50 p-6 rounded-2xl shadow-sm border border-stone-200 sim-card">
+                    <h3 class="font-bold text-stone-800 mb-6 border-b pb-2">基礎設施壓力參數</h3>
+                    
+                    <div class="mb-6">
+                        <label class="flex justify-between text-sm font-medium mb-2">
+                            <span>資料中心年複合成長率 (CAGR)</span>
+                            <span id="energy-growth-val" class="text-blue-600 font-bold">15%</span>
+                        </label>
+                        <input type="range" id="energy-growth" min="5" max="30" step="1" value="15">
+                        <p class="text-xs text-stone-400 mt-1"> 預測 2028 年資料中心將佔美國用電 12%</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="flex justify-between text-sm font-medium mb-2">
+                            <span>晶片平均功耗 (瓦/顆)</span>
+                            <span id="energy-power-val" class="text-stone-600 font-bold">700W</span>
+                        </label>
+                        <input type="range" id="energy-power" min="400" max="1500" step="50" value="700">
+                        <p class="text-xs text-stone-400 mt-1">H100 約 700W，未來 B200 可能更高</p>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 text-xs text-blue-900">
+                        <strong>物理約束：</strong> 對應報告 3.2 節。AI 需要 24/7 的基載電力，模擬結果顯示為何科技巨頭必須轉向核能。
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-stone-50 p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <div class="flex flex-col h-full justify-between">
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="energyChart"></canvas>
+                        </div>
+                        
+                        <div class="mt-4 bg-white p-4 rounded-xl border border-stone-200">
+                            <h4 class="text-sm font-bold text-stone-700 mb-3">2030 年電力缺口具象化：</h4>
+                            <div class="flex items-center justify-around text-center">
+                                <div>
+                                    <div class="text-3xl mb-1">⚛️</div>
+                                    <div class="text-xs text-stone-500">需要重啟<br>三哩島等級核電廠</div>
+                                    <div id="result-nuclear" class="text-xl font-bold text-stone-800 mt-1">3.5 座</div>
+                                </div>
+                                <div class="text-stone-300 text-2xl">OR</div>
+                                <div>
+                                    <div class="text-3xl mb-1">🌞</div>
+                                    <div class="text-xs text-stone-500">需要鋪設<br>太陽能板面積</div>
+                                    <div id="result-solar" class="text-xl font-bold text-stone-800 mt-1">12,000 公頃</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sim-prod" class="py-16 bg-stone-100 border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center mb-8">
+                <div class="bg-emerald-100 p-3 rounded-xl mr-4 text-2xl">📉</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-stone-900">模擬器 III：生產力 J 曲線預測</h2>
+                    <p class="text-stone-600">驗證核心觀點：預測從投入到產生正向 ROI 的時間滯後 (Time Lag)。</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 sim-card">
+                    <h3 class="font-bold text-stone-800 mb-6 border-b pb-2">組織轉型參數</h3>
+                    
+                    <div class="mb-6">
+                        <label class="flex justify-between text-sm font-medium mb-2">
+                            <span>組織摩擦係數 (流程僵化度)</span>
+                            <span id="prod-friction-val" class="text-stone-600 font-bold">高</span>
+                        </label>
+                        <input type="range" id="prod-friction" min="1" max="5" step="1" value="4">
+                        <p class="text-xs text-stone-400 mt-1"> 如同拖拉機與電氣化，重組流程需數十年。</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="flex justify-between text-sm font-medium mb-2">
+                            <span>影子 AI 採用率 (BYOAI)</span>
+                            <span id="prod-shadow-val" class="text-emerald-600 font-bold">75%</span>
+                        </label>
+                        <input type="range" id="prod-shadow" min="10" max="90" step="5" value="75">
+                        <p class="text-xs text-stone-400 mt-1"> 員工自帶 AI 比例越高，隱形效率越高，但風險也越高。</p>
+                    </div>
+
+                    <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100 text-xs text-emerald-900">
+                        <strong>歷史規律：</strong> 對應報告 3.1 節。此模擬將「生產力悖論」可視化，展示為何短期內數據看不出增長。
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <div class="chart-container">
+                        <canvas id="prodChart"></canvas>
+                    </div>
+                    <div class="mt-6 flex items-center justify-center space-x-8">
+                        <div class="text-center">
+                            <p class="text-xs text-stone-500">預計 ROI 轉正時間</p>
+                            <p id="result-roi-year" class="text-3xl font-bold text-emerald-600">2029</p>
+                        </div>
+                        <div class="h-10 w-px bg-stone-200"></div>
+                        <div class="text-center">
+                            <p class="text-xs text-stone-500">初期生產力最大跌幅</p>
+                            <p id="result-dip" class="text-xl font-bold text-red-500">-15%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-stone-900 text-stone-400 py-10 text-center text-sm">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-4">
+                本儀表板數據模型參考自：<br>
+                Goldman Sachs "Gen AI: Too Much Spend?" | IEA Electricity 2024 | MIT/NBER Macroeconomics of AI
+            </p>
+            <p>&copy; 2025 AI Strategy Dashboard. Based on the report "AI Trends: Geopolitics & Structural Impact".</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. Geopolitics Simulator Logic ---
+        const geoWacc = document.getElementById('geo-wacc');
+        const geoCogs = document.getElementById('geo-cogs');
+        const geoCtx = document.getElementById('geoChart').getContext('2d');
+        
+        let geoChart = new Chart(geoCtx, {
+            type: 'bar',
+            data: {
+                labels: ['全球化 (效率路徑)', '地緣分裂 (安全路徑)'],
+                datasets: [{
+                    label: '營運利潤率 (%)',
+                    data: [30, 23],
+                    backgroundColor: ['#d6d3d1', '#ea580c'],
+                    borderRadius: 8,
+                    barThickness: 60
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, max: 40, title: { display: true, text: '利潤率 %' } } }
+            }
+        });
+
+        function updateGeo() {
+            const wacc = parseFloat(geoWacc.value);
+            const cogs = parseFloat(geoCogs.value);
+            
+            document.getElementById('geo-wacc-val').innerText = wacc + '%';
+            document.getElementById('geo-cogs-val').innerText = cogs + '%';
+
+            // Model: Base Margin 30%. Impact = COGS + (WACC * 1.5 leverage proxy)
+            const impact = cogs + (wacc * 1.5);
+            const newMargin = Math.max(0, 30 - impact);
+            
+            geoChart.data.datasets[0].data[1] = newMargin;
+            geoChart.update();
+
+            document.getElementById('geo-result-margin').innerText = newMargin.toFixed(1) + '%';
+            document.getElementById('geo-result-erosion').innerText = '-' + impact.toFixed(1) + '%';
+        }
+
+        geoWacc.addEventListener('input', updateGeo);
+        geoCogs.addEventListener('input', updateGeo);
+
+        // --- 2. Energy Simulator Logic ---
+        const engGrowth = document.getElementById('energy-growth');
+        const engPower = document.getElementById('energy-power');
+        const engCtx = document.getElementById('energyChart').getContext('2d');
+
+        let energyChart = new Chart(engCtx, {
+            type: 'line',
+            data: {
+                labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                datasets: [{
+                    label: '資料中心電力需求 (TWh)',
+                    data: [],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: '現有電網承載上限',
+                    data: [400, 410, 420, 430, 440, 450, 460], // Hypothetical flat-ish line
+                    borderColor: '#ef4444',
+                    borderDash: [5, 5],
+                    borderWidth: 2,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { intersect: false, mode: 'index' },
+                scales: { y: { beginAtZero: false, title: { display: true, text: 'TWh (太瓦時)' } } }
+            }
+        });
+
+        function updateEnergy() {
+            const growthRate = parseInt(engGrowth.value) / 100;
+            const powerPerChip = parseInt(engPower.value);
+            
+            document.getElementById('energy-growth-val').innerText = engGrowth.value + '%';
+            document.getElementById('energy-power-val').innerText = powerPerChip + 'W';
+
+            // Simple Model: Start at 200 TWh, grow by rate + chip intensity factor
+            let currentLoad = 200; 
+            const data = [];
+            const intensityFactor = powerPerChip / 700; // Normalized to 700W
+
+            for (let i = 0; i < 7; i++) {
+                data.push(currentLoad);
+                currentLoad = currentLoad * (1 + growthRate * intensityFactor);
+            }
+
+            energyChart.data.datasets[0].data = data;
+            energyChart.update();
+
+            // Calculate "Nuclear Plants" (Assume 1 Three Mile Island unit ~ 8 TWh/yr output for simplicity math)
+            const gap = Math.max(0, data[6] - 460); // Gap in 2030
+            const nuclearNeeded = (data[6] - 200) / 20; // Rough proxy: 20TWh per large reactor plant
+            const solarNeeded = nuclearNeeded * 3500; // Hectares proxy
+
+            document.getElementById('result-nuclear').innerText = nuclearNeeded.toFixed(1) + ' 座';
+            document.getElementById('result-solar').innerText = Math.round(solarNeeded).toLocaleString() + ' 公頃';
+        }
+
+        engGrowth.addEventListener('input', updateEnergy);
+        engPower.addEventListener('input', updateEnergy);
+
+
+        // --- 3. Productivity J-Curve Logic ---
+        const prodFriction = document.getElementById('prod-friction');
+        const prodShadow = document.getElementById('prod-shadow');
+        const prodCtx = document.getElementById('prodChart').getContext('2d');
+
+        let prodChart = new Chart(prodCtx, {
+            type: 'line',
+            data: {
+                labels: ['Y1', 'Y2', 'Y3', 'Y4', 'Y5', 'Y6', 'Y7', 'Y8'],
+                datasets: [{
+                    label: 'AI 生產力淨回報',
+                    data: [],
+                    borderColor: '#059669',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#fff',
+                    segment: {
+                        borderColor: ctx => ctx.p0.parsed.y < 0 || ctx.p1.parsed.y < 0 ? '#ef4444' : '#059669'
+                    }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                yMin: 0,
+                                yMax: 0,
+                                borderColor: 'black',
+                                borderWidth: 1
+                            }
+                        }
+                    }
+                },
+                scales: { y: { title: { display: true, text: '生產力增益/損失 (%)' } } }
+            }
+        });
+
+        function updateProd() {
+            const friction = parseInt(prodFriction.value);
+            const shadow = parseInt(prodShadow.value);
+            
+            const frictionLabels = ['極低', '低', '中', '高', '極高'];
+            document.getElementById('prod-friction-val').innerText = frictionLabels[friction-1];
+            document.getElementById('prod-shadow-val').innerText = shadow + '%';
+
+            // Model: The J Curve.
+            // Deep dip depends on Friction. Recovery speed depends on Shadow adoption (bottom-up pressure).
+            
+            const dipDepth = -5 * friction; // Higher friction = deeper dip
+            const recoverySpeed = (shadow / 100) * 1.5 + (1.0 / friction); 
+            
+            let curve = [];
+            let roiYear = "> 2032";
+            let found = false;
+
+            for(let t=0; t<8; t++) {
+                // Formula: -Dip * e^(-t) + Growth * t
+                // Customized to create a J shape
+                let val = (dipDepth * Math.exp(-0.5 * t)) + (recoverySpeed * Math.pow(t, 1.8)) - Math.abs(dipDepth);
+                curve.push(val);
+
+                if (!found && val > 0) {
+                    roiYear = 2024 + t;
+                    found = true;
+                }
+            }
+
+            prodChart.data.datasets[0].data = curve;
+            prodChart.update();
+
+            document.getElementById('result-roi-year').innerText = roiYear;
+            document.getElementById('result-dip').innerText = dipDepth + '%';
+        }
+
+        prodFriction.addEventListener('input', updateProd);
+        prodShadow.addEventListener('input', updateProd);
+
+        // Init
+        updateGeo();
+        updateEnergy();
+        updateProd();
+
+        function scrollToId(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
